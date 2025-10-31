@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXA TECH PVT. LTD.</title>
+
+  <style>
+    /* --- Basic Reset --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+    }
+
+    .hero img {
+      width: 200px; /* Change this as per your logo size */
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #00bcd4;
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 40px;
+      font-size: 1rem;
+      color: #aaa;
+      cursor: pointer;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.5; }
+    }
+
+    /* --- Info Section --- */
+    section {
+      padding: 100px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: #00bcd4;
+      margin-bottom: 20px;
+    }
+
+    .info, .launches {
+      flex: 1;
+      min-width: 300px;
+      margin: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 188, 212, 0.2);
+      transition: 0.3s;
+    }
+
+    .info:hover, .launches:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px rgba(0, 188, 212, 0.4);
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #111;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <!-- Replace the src link below with your logo file -->
+    <img src="logo.png" alt="NEXA TECH Logo">
+    <h1>NEXA TECH PVT. LTD.</h1>
+    <div class="scroll-down" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">
+      ↓ Scroll Down
+    </div>
+  </div>
+
+  <!-- INFO SECTION -->
+  <section id="info">
+    <div class="info">
+      <h2>More Info</h2>
+      <p>
+        NEXA TECH is a future-driven innovation company focused on building AI-powered
+        ecosystems and next-gen consumer technology. Our vision is to redefine the way
+        humans interact with intelligence — seamlessly, intuitively, and beautifully.
+      </p>
+    </div>
+
+    <div class="launches">
+      <h2>Upcoming Launches & Prices</h2>
+      <p>
+        🔹 NexaSphere™ – AI Personal Drone (Coming 2026)<br>
+        🔹 NexaMind™ – Neural AI Headband (TBA)<br>
+        🔹 NexaHome 2.0™ – Smart Home Ecosystem (₹1,49,999)<br>
+        🔹 NexaCell™ – Ultra Fast Graphene Powerbank (₹9,999)
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 NEXA TECH PVT. LTD. | All Rights Reserved
+  </footer>
+
+  <script>
+    // Future JS features or animations can be added here
+    console.log("Welcome to Nexa Tech — Future Driven Innovation-Led");
+  </script>
+</body>
+</html>
