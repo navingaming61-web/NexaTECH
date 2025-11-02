@@ -7,8 +7,8 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0c0c0c;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #050505, #0b0b0b, #000);
       color: white;
       overflow-x: hidden;
     }
@@ -17,37 +17,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #111;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(6px);
       padding: 15px 30px;
-    }
-
-    header h1 {
-      font-size: 26px;
-      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(0, 200, 255, 0.2);
     }
 
     img.logo {
       width: 60px;
       cursor: pointer;
+      border-radius: 10px;
     }
 
-    /* Hamburger Icon */
     .menu-icon {
       font-size: 28px;
       cursor: pointer;
       display: block;
+      color: #00d9ff;
+      transition: 0.3s;
     }
 
-    /* Sidebar Menu */
+    .menu-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Sidebar */
     .sidebar {
       position: fixed;
-      right: -250px;
+      right: -260px;
       top: 0;
-      width: 250px;
+      width: 260px;
       height: 100%;
-      background: #1b1b1b;
-      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.6);
-      transition: right 0.3s ease;
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: -5px 0 15px rgba(0, 255, 255, 0.1);
+      transition: right 0.4s ease;
       padding-top: 60px;
       z-index: 999;
     }
@@ -56,73 +60,71 @@
       right: 0;
     }
 
-    .sidebar a {
+    .sidebar button, .sidebar a {
       display: block;
-      padding: 12px 25px;
-      text-decoration: none;
-      color: white;
-      font-size: 18px;
-    }
-
-    .sidebar a:hover {
-      background: #292929;
-    }
-
-    /* Dropdown */
-    .dropdown-btn {
-      padding: 12px 25px;
-      font-size: 18px;
-      border: none;
-      outline: none;
-      color: white;
-      background: none;
       width: 100%;
+      padding: 14px 25px;
+      border: none;
+      background: none;
+      color: #fff;
+      font-size: 18px;
       text-align: left;
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .sidebar button:hover, .sidebar a:hover {
+      background: rgba(0, 255, 255, 0.1);
+      color: #00d9ff;
     }
 
     .dropdown-container {
       display: none;
-      background-color: #2a2a2a;
       padding-left: 20px;
-    }
-
-    .dropdown-container a {
-      font-size: 16px;
-      padding: 8px 25px;
+      background: rgba(0, 0, 0, 0.4);
     }
 
     .dropdown-btn::after {
       content: "▼";
       float: right;
-      margin-left: 5px;
+      transition: 0.3s;
     }
 
     .dropdown-btn.active::after {
-      content: "▲";
+      transform: rotate(180deg);
     }
 
-    /* Main Content */
+    /* Main content */
     main {
-      padding: 40px;
       text-align: center;
+      padding: 80px 30px;
     }
 
-    main h2 {
+    main h1 {
+      font-size: 38px;
       color: #00d9ff;
-      font-size: 32px;
+      letter-spacing: 2px;
+    }
+
+    main h3 {
+      font-size: 20px;
+      font-weight: 400;
+      margin-top: 15px;
+      color: #bfbfbf;
     }
 
     main p {
-      color: #ccc;
-      max-width: 700px;
-      margin: 20px auto;
+      margin-top: 25px;
+      color: #c0c0c0;
       line-height: 1.6;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
-
   </style>
 </head>
 <body>
+
   <header>
     <img src="logo.png" alt="NEXA TECH Logo" class="logo" />
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
@@ -131,17 +133,17 @@
   <div id="sidebar" class="sidebar">
     <button class="dropdown-btn">About Us</button>
     <div class="dropdown-container">
-      <a href="#">Our Address</a>
-      <a href="#">Vision</a>
-      <a href="#">Mission</a>
-      <a href="#">Our Journey</a>
+      <a href="#">📍 Address</a>
+      <a href="#">🌍 Our Vision</a>
+      <a href="#">🚀 Mission</a>
+      <a href="#">💡 Our Journey</a>
     </div>
   </div>
 
   <main>
-    <h2>Welcome to NEXA TECH</h2>
+    <h1>Welcome to NEXA TECH</h1>
+    <h3>NEXA TECH PVT. LTD. 🚀 Future-Driven. Innovation-Led.</h3>
     <p>
-      NEXA TECH PVT. LTD. 🚀 Future-Driven. Innovation-Led.<br><br>
       Revolutionizing technology through Artificial Intelligence, Smart Devices,
       and futuristic designs for a better tomorrow.
     </p>
@@ -152,13 +154,13 @@
       document.getElementById("sidebar").classList.toggle("open");
     }
 
-    let dropdown = document.querySelector(".dropdown-btn");
+    const dropdown = document.querySelector(".dropdown-btn");
     dropdown.addEventListener("click", function () {
       this.classList.toggle("active");
-      let dropdownContent = this.nextElementSibling;
-      dropdownContent.style.display =
-        dropdownContent.style.display === "block" ? "none" : "block";
+      const content = this.nextElementSibling;
+      content.style.display = content.style.display === "block" ? "none" : "block";
     });
   </script>
+
 </body>
 </html>
