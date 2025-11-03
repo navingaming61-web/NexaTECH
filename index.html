@@ -219,6 +219,64 @@
     }
     .goal p:hover { transform: scale(1.02); }
 
+    /* ---------- Chatbot ---------- */
+    .chatbot {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      width: 320px;
+      background: rgba(0, 20, 30, 0.9);
+      border: 1px solid rgba(0,255,255,0.3);
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.2);
+      z-index: 1300;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .chatbot.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+    }
+    .chat-header {
+      background: rgba(0,255,255,0.1);
+      color: #00eaff;
+      padding: 10px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-messages {
+      height: 200px;
+      padding: 10px;
+      overflow-y: auto;
+      color: #d8faff;
+      font-size: 14px;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid rgba(0,255,255,0.2);
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      background: rgba(0,10,20,0.7);
+      border: none;
+      color: #fff;
+      outline: none;
+    }
+    .chat-input button {
+      background: #00eaff;
+      border: none;
+      color: #000;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
     footer {
       text-align: center;
       padding: 25px;
@@ -232,22 +290,20 @@
       .side-panel { width: 85%; right: -100%; }
       .logo { width: 150px; }
       .company-name { font-size: 22px; }
+      .chatbot { width: 260px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- Hamburger -->
   <div class="topbar">
     <div class="hamburger" id="hamburgerBtn" title="Menu">
       <div class="bars">☰</div>
     </div>
   </div>
 
-  <!-- Sidebar -->
   <aside id="sidePanel" class="side-panel">
     <h3>About Us</h3>
     <div class="menu-item">NEXA TECH PVT. LTD.</div>
@@ -265,7 +321,6 @@
     </div>
   </aside>
 
-  <!-- Hero -->
   <main class="hero">
     <div class="logo-wrap">
       <a href="NexaTech.pptx" download title="Download NexaTech Presentation">
@@ -276,7 +331,6 @@
     </div>
   </main>
 
-  <!-- Products Section -->
   <section class="products">
     <h2>Our Products</h2>
     <div class="product-grid">
@@ -288,7 +342,6 @@
     </div>
   </section>
 
-  <!-- Main Goal Section -->
   <section class="goal">
     <h2>Main Goal of NEXA TECH</h2>
     <p>
@@ -303,6 +356,20 @@
     </p>
   </section>
 
+  <div class="chatbot" id="chatbot">
+    <div class="chat-header">
+      Nexa AI Assistant
+      <span id="closeChat" style="cursor:pointer;">✖</span>
+    </div>
+    <div class="chat-messages">
+      <p><strong>Nexa AI:</strong> Hello! How can I assist you today?</p>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type a message..." />
+      <button>Send</button>
+    </div>
+  </div>
+
   <footer>© 2025 NEXA TECH PVT. LTD. — All Rights Reserved.</footer>
 
   <script>
@@ -312,6 +379,8 @@
     const aboutBtn = document.getElementById("aboutBtn");
     const aboutList = document.getElementById("aboutList");
     const caret = document.getElementById("caret");
+    const chatbot = document.getElementById("chatbot");
+    const closeChat = document.getElementById("closeChat");
 
     hamburger.addEventListener("click", () => {
       sidePanel.classList.toggle("open");
@@ -333,6 +402,15 @@
         sidePanel.classList.remove("open");
         overlay.classList.remove("active");
       }
+    });
+
+    closeChat.addEventListener("click", () => {
+      chatbot.style.display = "none";
+    });
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) chatbot.classList.add("hidden");
+      else chatbot.classList.remove("hidden");
     });
   </script>
 </body>
