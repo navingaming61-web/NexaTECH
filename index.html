@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aviora Tech Pvt. Ltd.</title>
+  <title>AVIORA TECH PVT. LTD.</title>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; scroll-behavior: smooth; }
@@ -13,6 +14,111 @@
       color: #e6f7fb;
       overflow-x: hidden;
     }
+
+    /* ---------- Header ---------- */
+    .topbar {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+    }
+    .hamburger {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(0,217,255,0.08);
+      box-shadow: 0 6px 22px rgba(0,217,255,0.03);
+      transition: transform .2s ease;
+    }
+    .hamburger:hover { transform: scale(1.05); }
+    .hamburger .bars { color: #00d9ff; font-size: 22px; }
+
+    /* ---------- Overlay ---------- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 255, 255, 0.08);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1099;
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ---------- Sidebar ---------- */
+    .side-panel {
+      position: fixed;
+      top: 0;
+      right: -360px;
+      width: 360px;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(8,12,14,0.98), rgba(10,14,18,0.95));
+      border-left: 1px solid rgba(0,217,255,0.06);
+      box-shadow: -20px 0 80px rgba(0,255,255,0.1);
+      padding: 70px 22px;
+      transition: right .35s ease;
+      z-index: 1100;
+    }
+    .side-panel.open { right: 0; }
+
+    .side-panel h3 {
+      color: #00d9ff;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+    .menu-item {
+      color: #d8fbff;
+      padding: 12px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+    .menu-item:hover { background: rgba(0,217,255,0.04); color: #00f0ff; }
+
+    .droprow { margin-top: 8px; }
+    .dd-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      padding: 12px 10px;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .caret { transition: transform .25s ease; color: #9feeff; }
+    .dd-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+      padding-left: 10px;
+    }
+    .dd-list.open { max-height: 240px; padding-top: 8px; }
+    .dd-list .sub {
+      display: block;
+      color: #cbeff2;
+      padding: 8px 6px;
+      font-size: 15px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .dd-list .sub:hover { color: #00e6ff; background: rgba(0,217,255,0.03); }
+
+    /* ---------- Hero Section ---------- */
     .hero {
       height: 100vh;
       display: grid;
@@ -20,120 +126,297 @@
       text-align: center;
       padding: 30px;
     }
-    .logo { width: 220px; animation: floaty 3s ease-in-out infinite; cursor: pointer; }
-    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-    .company-name { margin-top: 10px; color: #bff8ff; font-size: 28px; font-weight: 700; letter-spacing: 1.4px; }
-    .subtitle { margin-top: 10px; color: #c9f1f6; font-size: 15px; opacity: 0.85; max-width: 700px; }
+    .logo-wrap {
+      display: grid;
+      place-items: center;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
+    }
+    .logo {
+      width: 220px;
+      animation: floaty 3s ease-in-out infinite;
+      transition: transform .18s ease;
+    }
+    .logo:hover { transform: scale(1.05); cursor: pointer; }
+    @keyframes floaty {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .company-name {
+      margin-top: 10px;
+      color: #bff8ff;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+    }
+    .subtitle {
+      margin-top: 10px;
+      color: #c9f1f6;
+      font-size: 15px;
+      opacity: 0.85;
+      max-width: 700px;
+    }
 
+    /* ---------- Products Section ---------- */
     .products {
       padding: 100px 20px;
       text-align: center;
     }
-    .products h2 { font-size: 2rem; color: #00eaff; margin-bottom: 50px; text-shadow: 0 0 10px #00eaff; }
+    .products h2 {
+      font-size: 2rem;
+      color: #00eaff;
+      margin-bottom: 50px;
+      text-shadow: 0 0 10px #00eaff;
+    }
     .product-grid {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
     }
     .product-card {
-      width: 200px; text-align: center;
+      width: 200px;
+      text-align: center;
       background: rgba(0,255,255,0.05);
       border: 1px solid rgba(0,255,255,0.15);
-      border-radius: 15px; padding: 20px;
+      border-radius: 15px;
+      padding: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
     }
-    .product-card:hover { transform: scale(1.07); box-shadow: 0 0 20px rgba(0,255,255,0.25); }
-    .product-card img { width: 100%; border-radius: 10px; }
-    .product-card h3 { margin-top: 10px; color: #bffcff; font-size: 18px; }
+    .product-card:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 20px rgba(0,255,255,0.25);
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .product-card h3 {
+      margin-top: 10px;
+      color: #bffcff;
+      font-size: 18px;
+    }
 
+    /* ---------- Product Info ---------- */
     .product-info {
       padding: 80px 20px;
       text-align: center;
       display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
     .product-info.active { display: block; }
     .product-info h2 { color: #00eaff; font-size: 2rem; margin-bottom: 20px; text-shadow: 0 0 10px #00eaff; }
-    .product-info img { width: 260px; margin: 20px 0; border-radius: 15px; box-shadow: 0 0 30px rgba(0,255,255,0.1); }
-    .product-info p { max-width: 700px; margin: 0 auto; line-height: 1.7; color: #c9f1f6; }
+    .product-info img { width: 320px; max-width: 90%; margin: 20px 0; border-radius: 15px; box-shadow: 0 0 30px rgba(0,255,255,0.08); }
+    .product-info p { max-width: 900px; margin: 0 auto; line-height: 1.7; color: #c9f1f6; margin-bottom: 18px; }
+    .back-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 18px;
+      background: transparent;
+      color: #00eaff;
+      border: 1px solid rgba(0,234,255,0.28);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .back-btn:hover { background: rgba(0,234,255,0.04); }
 
-    footer { text-align: center; padding: 25px; background: #010a10; border-top: 1px solid rgba(0,255,255,0.15); color: #00f0ff; font-size: 14px; }
+    /* ---------- Chatbot ---------- */
+    .chatbot {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      width: 320px;
+      background: rgba(0, 20, 30, 0.9);
+      border: 1px solid rgba(0,255,255,0.3);
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.18);
+      z-index: 1300;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .chatbot.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+    }
+    .chat-header {
+      background: rgba(0,255,255,0.06);
+      color: #00eaff;
+      padding: 10px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-messages {
+      height: 160px;
+      padding: 10px;
+      overflow-y: auto;
+      color: #d8faff;
+      font-size: 14px;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid rgba(0,255,255,0.12);
+      padding: 8px;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 8px 10px;
+      background: rgba(0,10,20,0.7);
+      border: none;
+      color: #fff;
+      outline: none;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+    .chat-input button {
+      background: #00eaff;
+      border: none;
+      color: #000;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #010a10;
+      border-top: 1px solid rgba(0,255,255,0.15);
+      color: #00f0ff;
+      font-size: 14px;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Hamburger -->
+  <div class="topbar">
+    <div class="hamburger" id="hamburgerBtn" title="Menu">
+      <div class="bars">☰</div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside id="sidePanel" class="side-panel">
+    <h3>About Us</h3>
+    <div class="menu-item">AVIORA TECH PVT. LTD.</div>
+    <div class="droprow">
+      <button class="dd-btn" id="aboutBtn">
+        <span>More Info</span>
+        <span class="caret" id="caret">▾</span>
+      </button>
+      <div class="dd-list" id="aboutList">
+        <a class="sub" href="#">📍 Address — Orion Business Park, Thane West</a>
+        <a class="sub" href="#">🚀 Mission — Build intelligent, human-first tech</a>
+        <a class="sub" href="#">🌍 Vision — Smart devices that understand people</a>
+        <a class="sub" href="#">📞 Contact — +91 22 4973 5628</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Hero -->
   <main class="hero" id="mainPage">
     <div class="logo-wrap">
-      <img src="logo.png" alt="Aviora Tech Logo" class="logo" />
-      <div class="company-name">Aviora Tech Pvt. Ltd.</div>
-      <div class="subtitle">AI • Robotics • Smart Devices — The Future, Reinvented</div>
+      <a href="AvioraTech.pptx" download title="Download AvioraTech Presentation">
+        <img src="logo.png" alt="AVIORA TECH Logo" class="logo">
+      </a>
+      <div class="company-name">AVIORA TECH PVT. LTD.</div>
+      <div class="subtitle">Future-Driven • Innovation-Led — Artificial Intelligence, Smart Devices & Next-Gen Ecosystems</div>
     </div>
   </main>
 
+  <!-- Products -->
   <section class="products" id="productSection">
     <h2>Our Products</h2>
     <div class="product-grid">
-      <div class="product-card" data-product="AvioraBuds"><img src="NexaBUDS.png" alt=""><h3>AvioraBuds</h3></div>
-      <div class="product-card" data-product="AvioraVerse"><img src="NexaVERSE.png" alt=""><h3>AvioraVerse</h3></div>
-      <div class="product-card" data-product="AvioraHome"><img src="NexaHOME.png" alt=""><h3>AvioraHome</h3></div>
-      <div class="product-card" data-product="AvioraCell"><img src="NexaCELL.png" alt=""><h3>AvioraCell</h3></div>
-      <div class="product-card" data-product="AvioraBot"><img src="NexaBOT.png" alt=""><h3>AvioraBot</h3></div>
+      <div class="product-card" data-product="AvioraBuds"><img src="NexaBUDS.png" alt="AvioraBuds"><h3>AvioraBuds</h3></div>
+      <div class="product-card" data-product="AvioraVerse"><img src="NexaVERSE.png" alt="AvioraVerse"><h3>AvioraVerse</h3></div>
+      <div class="product-card" data-product="AvioraHome"><img src="NexaHOME.png" alt="AvioraHome"><h3>AvioraHome</h3></div>
+      <div class="product-card" data-product="AvioraCell"><img src="NexaCELL.png" alt="AvioraCell"><h3>AvioraCell</h3></div>
+      <div class="product-card" data-product="AvioraBot"><img src="NexaBOT.png" alt="AvioraBot"><h3>AvioraBot</h3></div>
     </div>
   </section>
 
+  <!-- Product Detail -->
   <section class="product-info" id="productInfo">
     <h2 id="productTitle"></h2>
     <img id="productImage" src="" alt="">
     <p id="productDescription"></p>
+    <button class="back-btn" id="backHome">← Back to Home</button>
   </section>
 
-  <footer>© 2025 Aviora Tech Pvt. Ltd. — All Rights Reserved.</footer>
+  <!-- Chatbot -->
+  <div class="chatbot" id="chatbot">
+    <div class="chat-header">
+      Aviora AI Assistant
+      <span id="closeChat" style="cursor:pointer;">✖</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <p><strong>Aviora AI:</strong> Hello! How can I assist you today?</p>
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" type="text" placeholder="Type a message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <footer>© 2025 AVIORA TECH PVT. LTD. — All Rights Reserved.</footer>
 
   <script>
+    const hamburger = document.getElementById("hamburgerBtn");
+    const sidePanel = document.getElementById("sidePanel");
+    const overlay = document.getElementById("overlay");
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutList = document.getElementById("aboutList");
+    const caret = document.getElementById("caret");
     const productCards = document.querySelectorAll(".product-card");
     const mainPage = document.getElementById("mainPage");
     const productSection = document.getElementById("productSection");
     const productInfo = document.getElementById("productInfo");
+    const productTitle = document.getElementById("productTitle");
+    const productImage = document.getElementById("productImage");
+    const productDescription = document.getElementById("productDescription");
+    const backHome = document.getElementById("backHome");
+    const chatbot = document.getElementById("chatbot");
+    const closeChat = document.getElementById("closeChat");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const chatMessages = document.getElementById("chatMessages");
 
     const productData = {
       AvioraBuds: {
         img: "NexaBUDS.png",
         title: "AvioraBuds",
-        desc: "Experience crystal-clear sound and intelligent noise cancellation with AvioraBuds. Expected Price: ₹8,499 | Warranty: 1 Year"
+        desc: "Experience crystal-clear sound and intelligent noise cancellation.\n\nFeatures: Active Noise Cancellation, Adaptive EQ, 30h battery with case, IPX4 resistance.\nPrice: ₹8,499 | Warranty: 1 Year."
       },
       AvioraVerse: {
         img: "NexaVERSE.png",
         title: "AvioraVerse",
-        desc: "Step into mixed reality with AvioraVerse smart AR glasses. Expected Price: ₹29,999 | Warranty: 2 Years"
+        desc: "Step into mixed reality with AvioraVerse AR glasses.\n\nFeatures: Dual cameras, low-latency AR overlays, gesture controls.\nPrice: ₹29,999 | Warranty: 2 Years."
       },
       AvioraHome: {
         img: "NexaHOME.png",
         title: "AvioraHome",
-        desc: "Smart home ecosystem with AI voice control and automation. Expected Price: ₹14,999 | Warranty: 1 Year"
+        desc: "Smart home ecosystem with voice control and automation.\n\nIncludes: Hub + sensors + smart plug, routines, remote monitoring.\nPrice: ₹14,999 | Warranty: 1 Year."
       },
       AvioraCell: {
         img: "NexaCELL.png",
         title: "AvioraCell",
-        desc: "A futuristic AI-powered smartphone built for next-gen performance. Expected Price: ₹79,999 | Warranty: 1.5 Years"
+        desc: "AI-powered smartphone with graphene battery.\n\nFeatures: Neural co-processor, adaptive performance, fast charging.\nPrice: ₹79,999 | Warranty: 1.5 Years."
       },
       AvioraBot: {
         img: "NexaBOT.png",
         title: "AvioraBot",
-        desc: "Your personal home robot assistant. Helps you organize, interact, and live smarter. Expected Price: ₹1,49,999 | Warranty: 3 Years"
-      }
-    };
-
-    productCards.forEach(card => {
-      card.addEventListener("click", () => {
-        const key = card.getAttribute("data-product");
-        const item = productData[key];
-        mainPage.style.display = "none";
-        productSection.style.display = "none";
-        productInfo.classList.add("active");
-        document.getElementById("productTitle").textContent = item.title;
-        document.getElementById("productImage").src = item.img;
-        document.getElementById("productDescription").textContent = item.desc;
-        window.scrollTo(0, 0);
-      });
-    });
-  </script>
-</body>
-</html>
+        desc: "Your personal robot assistant — think smarter, live easier.\n\nFeatures: Voice control, household integration, on-device AI.\nPrice: ₹1,49,
