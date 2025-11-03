@@ -6,29 +6,24 @@
   <title>NEXA TECH PVT. LTD.</title>
 
   <style>
-    /* ========== Reset & base ========== */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html,body { height: 100%; }
+    html, body { height: 100%; scroll-behavior: smooth; }
     body {
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: "Poppins", sans-serif;
       background: radial-gradient(circle at 20% 10%, #071023 0%, #020203 45%, #000 100%);
       color: #e6f7fb;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
 
-    /* ========== header (hamburger) ========== */
+    /* ---------- Header ---------- */
     .topbar {
       position: fixed;
       top: 18px;
       right: 22px;
       z-index: 1200;
       display: flex;
-      gap: 12px;
       align-items: center;
     }
-
     .hamburger {
       width: 48px;
       height: 48px;
@@ -38,31 +33,41 @@
       cursor: pointer;
       background: rgba(0,0,0,0.45);
       border: 1px solid rgba(0,217,255,0.08);
-      box-shadow: 0 6px 22px rgba(0,217,255,0.03), inset 0 -2px 10px rgba(0,0,0,0.25);
-      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 6px 22px rgba(0,217,255,0.03);
+      transition: transform .2s ease;
     }
-    .hamburger:hover { transform: scale(1.04); box-shadow: 0 10px 30px rgba(0,217,255,0.08); }
-    .hamburger .bars {
-      color: #00d9ff;
-      font-size: 22px;
-      line-height: 1;
-      user-select: none;
+    .hamburger:hover { transform: scale(1.05); }
+    .hamburger .bars { color: #00d9ff; font-size: 22px; }
+
+    /* ---------- Overlay ---------- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 255, 255, 0.08);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1099;
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
     }
 
-    /* ========== side panel ========== */
+    /* ---------- Sidebar ---------- */
     .side-panel {
       position: fixed;
       top: 0;
-      right: -320px;              /* hidden by default */
+      right: -320px;
       width: 320px;
       height: 100%;
-      background: linear-gradient(180deg, rgba(8,12,14,0.98) 0%, rgba(10,14,18,0.95) 100%);
+      background: linear-gradient(180deg, rgba(8,12,14,0.98), rgba(10,14,18,0.95));
       border-left: 1px solid rgba(0,217,255,0.06);
-      box-shadow: -30px 0 80px rgba(0, 20, 30, 0.55);
+      box-shadow: -20px 0 80px rgba(0,255,255,0.1);
       padding: 70px 22px;
-      transition: right .42s cubic-bezier(.2, .9, .2, 1);
+      transition: right .4s ease;
       z-index: 1100;
-      backdrop-filter: blur(8px) saturate(120%);
     }
     .side-panel.open { right: 0; }
 
@@ -70,192 +75,164 @@
       color: #00d9ff;
       margin-bottom: 12px;
       font-size: 18px;
-      letter-spacing: 0.6px;
     }
     .menu-item {
-      display: block;
       color: #d8fbff;
       padding: 12px 10px;
       border-radius: 8px;
       margin-bottom: 6px;
       cursor: pointer;
-      transition: background .2s, color .2s, transform .15s;
+      transition: 0.3s;
       font-size: 16px;
     }
-    .menu-item:hover { background: rgba(0,217,255,0.04); color: #00f0ff; transform: translateX(-3px); }
+    .menu-item:hover { background: rgba(0,217,255,0.04); color: #00f0ff; }
 
-    /* dropdown within side panel */
-    .droprow { margin-top: 8px; overflow: hidden; }
+    .droprow { margin-top: 8px; }
     .dd-btn {
-      display:flex; align-items:center; justify-content:space-between;
-      width:100%; background:none; border:none; color:inherit; cursor:pointer;
-      font-size:16px; padding:12px 10px; border-radius:8px;
+      width: 100%;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      padding: 12px 10px;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      border-radius: 8px;
     }
-    .dd-btn:focus { outline: none; }
-    .caret { color: #9feeff; transition: transform .25s ease; }
+    .caret { transition: transform .25s ease; color: #9feeff; }
     .dd-list {
       max-height: 0;
       overflow: hidden;
-      transition: max-height .36s cubic-bezier(.2,.9,.2,1), padding .18s;
+      transition: max-height .3s ease;
       padding-left: 10px;
     }
     .dd-list.open { max-height: 240px; padding-top: 8px; }
-
     .dd-list .sub {
-      display:block; color:#cbeff2; padding:10px 6px; font-size:15px; border-radius:6px; margin-bottom:6px;
+      display: block;
+      color: #cbeff2;
+      padding: 8px 6px;
+      font-size: 15px;
+      border-radius: 6px;
     }
-    .dd-list .sub:hover { color:#00e6ff; background: rgba(0,217,255,0.03); transform: translateX(-3px); }
+    .dd-list .sub:hover { color: #00e6ff; background: rgba(0,217,255,0.03); }
 
-    /* ========== center hero with floating logo ========== */
+    /* ---------- Hero Section ---------- */
     .hero {
       height: 100vh;
       display: grid;
       place-items: center;
-      gap: 18px;
       text-align: center;
       padding: 30px;
     }
-
     .logo-wrap {
-      display: inline-block;
-      width: 260px;
-      height: 260px;
       display: grid;
       place-items: center;
-      position: relative;
       filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
     }
-
-    .logo-anch { display:block; } /* anchor around image for download */
-
     .logo {
       width: 220px;
-      height: auto;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding: 12px;
       animation: floaty 3s ease-in-out infinite;
-      transition: transform .18s ease, box-shadow .18s;
-      border: 1px solid rgba(255,255,255,0.03);
+      transition: transform .18s ease;
     }
-    .logo:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 60px rgba(0,217,255,0.06); cursor: pointer; }
-
+    .logo:hover { transform: scale(1.05); cursor: pointer; }
     @keyframes floaty {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-18px); }
-      100% { transform: translateY(0); }
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
-
     .company-name {
-      margin-top: 6px;
+      margin-top: 10px;
       color: #bff8ff;
       font-size: 28px;
-      letter-spacing: 1.6px;
       font-weight: 700;
-      text-shadow: 0 6px 30px rgba(0,217,255,0.04);
+      letter-spacing: 1.4px;
     }
-
     .subtitle {
       margin-top: 10px;
       color: #c9f1f6;
       font-size: 15px;
       opacity: 0.85;
-      max-width: 780px;
+      max-width: 700px;
     }
 
-    /* small scroll hint */
-    .scroll-hint {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(180,255,255,0.7);
-      font-size: 13px;
-      letter-spacing: 1px;
-      opacity: 0.9;
-    }
-
-    /* responsive tweaks */
-    @media (max-width: 700px) {
-      .side-panel { width: 86%; right: -100%; }
-      .logo { width: 160px; }
-      .logo-wrap { width: 190px; height: 190px; }
-      .company-name { font-size: 20px; }
+    @media (max-width:700px){
+      .side-panel { width: 85%; right: -100%; }
+      .logo { width: 150px; }
+      .company-name { font-size: 22px; }
     }
   </style>
 </head>
 <body>
-  <!-- top-right hamburger -->
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Hamburger -->
   <div class="topbar">
-    <div class="hamburger" id="hamburgerBtn" title="Menu (About Us)">
+    <div class="hamburger" id="hamburgerBtn" title="Menu">
       <div class="bars">☰</div>
     </div>
   </div>
 
-  <!-- slide panel (from right) -->
-  <aside id="sidePanel" class="side-panel" aria-hidden="true">
+  <!-- Sidebar -->
+  <aside id="sidePanel" class="side-panel">
     <h3>About Us</h3>
-
     <div class="menu-item">NEXA TECH PVT. LTD.</div>
-
     <div class="droprow">
       <button class="dd-btn" id="aboutBtn">
-        <span>About Us Options</span>
+        <span>More Info</span>
         <span class="caret" id="caret">▾</span>
       </button>
-
-      <div class="dd-list" id="aboutList" aria-hidden="true">
-        <a class="sub" href="#">📍 Address — Orion Business Park, Thane West, Mumbai</a>
+      <div class="dd-list" id="aboutList">
+        <a class="sub" href="#">📍 Address — Orion Business Park, Thane West</a>
         <a class="sub" href="#">🚀 Mission — Build intelligent, human-first tech</a>
         <a class="sub" href="#">🌍 Vision — Smart devices that understand people</a>
         <a class="sub" href="#">📞 Contact — +91 22 4973 5628</a>
       </div>
     </div>
-
-    <div style="height:20px"></div>
-    <div style="color:#7fe9ff; font-size:13px; padding:8px 6px;">Tip: Click any sub-option to later link pages</div>
   </aside>
 
-  <!-- main hero -->
-  <main class="hero" role="main">
+  <!-- Hero -->
+  <main class="hero">
     <div class="logo-wrap">
-      <!-- clicking downloads NexaTech.pptx placed in same folder on repo root -->
-      <a class="logo-anch" href="NexaTech.pptx" download title="Download NexaTech Presentation">
-        <img src="logo.png" alt="NEXA TECH Logo" class="logo" />
+      <a href="NexaTech.pptx" download title="Download NexaTech Presentation">
+        <img src="logo.png" alt="NEXA TECH Logo" class="logo">
       </a>
+      <div class="company-name">NEXA TECH PVT. LTD.</div>
+      <div class="subtitle">Future-Driven • Innovation-Led — Artificial Intelligence, Smart Devices & Next-Gen Ecosystems</div>
     </div>
-
-    <div class="company-name">NEXA TECH PVT. LTD.</div>
-    <div class="subtitle">Future-Driven • Innovation-Led — Artificial Intelligence, Smart Devices & Next-Gen Ecosystems</div>
-
-    <div class="scroll-hint">↓ Scroll for more (coming soon)</div>
   </main>
 
   <script>
-    // Panel toggle
     const hamburger = document.getElementById("hamburgerBtn");
-    const panel = document.getElementById("sidePanel");
+    const sidePanel = document.getElementById("sidePanel");
+    const overlay = document.getElementById("overlay");
     const aboutBtn = document.getElementById("aboutBtn");
     const aboutList = document.getElementById("aboutList");
     const caret = document.getElementById("caret");
 
+    // Toggle sidebar + overlay
     hamburger.addEventListener("click", () => {
-      panel.classList.toggle("open");
-      // aria
-      panel.setAttribute("aria-hidden", panel.classList.contains("open") ? "false" : "true");
+      sidePanel.classList.toggle("open");
+      overlay.classList.toggle("active");
     });
 
-    // About dropdown toggle (non-redirect)
+    // Click outside closes sidebar
+    overlay.addEventListener("click", () => {
+      sidePanel.classList.remove("open");
+      overlay.classList.remove("active");
+    });
+
+    // Dropdown toggle
     aboutBtn.addEventListener("click", () => {
       const isOpen = aboutList.classList.toggle("open");
-      aboutList.setAttribute("aria-hidden", isOpen ? "false" : "true");
       caret.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
     });
 
-    // Accessibility: close panel on ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && panel.classList.contains("open")) {
-        panel.classList.remove("open");
+    // Close on ESC
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        sidePanel.classList.remove("open");
+        overlay.classList.remove("active");
       }
     });
   </script>
