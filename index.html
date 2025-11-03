@@ -29,41 +29,17 @@
     header img {
       height: 55px;
       filter: drop-shadow(0 0 8px #00eaff);
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 50px;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav ul li a {
-      color: #00eaff;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-    }
-
-    nav ul li a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      background: #00eaff;
-      left: 0;
-      bottom: -6px;
-      transition: width 0.3s;
-    }
-
-    nav ul li a:hover::after {
-      width: 100%;
+    header img:hover {
+      transform: scale(1.1);
     }
 
     /* Hamburger icon */
     .menu-toggle {
-      display: none;
+      display: flex;
       flex-direction: column;
       cursor: pointer;
     }
@@ -72,32 +48,40 @@
       width: 25px;
       height: 3px;
       background: #00eaff;
-      margin: 5px 0;
+      margin: 4px 0;
       transition: 0.3s;
     }
 
-    /* Responsive Menu */
-    @media (max-width: 900px) {
-      nav ul {
-        display: none;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.95);
-        position: absolute;
-        top: 80px;
-        right: 0;
-        width: 220px;
-        padding: 25px;
-        border-left: 1px solid #00eaff;
-        border-bottom: 1px solid #00eaff;
-      }
+    /* Slide-in sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100%;
+      background: rgba(0, 20, 25, 0.98);
+      box-shadow: -3px 0 15px #00eaff88;
+      border-left: 1px solid #00eaff;
+      padding: 80px 30px;
+      transition: right 0.4s ease;
+      z-index: 9;
+    }
 
-      nav ul.active {
-        display: flex;
-      }
+    .sidebar.active {
+      right: 0;
+    }
 
-      .menu-toggle {
-        display: flex;
-      }
+    .sidebar h2 {
+      color: #00eaff;
+      text-shadow: 0 0 10px #00eaff;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .sidebar p {
+      font-size: 1rem;
+      color: #b3ffff;
+      line-height: 1.6;
     }
 
     /* Hero Section */
@@ -116,6 +100,7 @@
       margin-bottom: 25px;
       filter: drop-shadow(0 0 20px #00eaff);
       animation: float 4s ease-in-out infinite;
+      cursor: pointer;
     }
 
     @keyframes float {
@@ -136,26 +121,24 @@
       margin: 0 auto;
     }
 
-    /* About Section */
-    section {
-      padding: 80px 10%;
-      text-align: center;
-      background: #000;
+    /* Overlay when sidebar opens */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 238, 255, 0.05);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 8;
     }
 
-    section h2 {
-      font-size: 2rem;
-      color: #00eaff;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px #00eaff;
-    }
-
-    section p {
-      color: #b3ffff;
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      line-height: 1.7;
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
 
     footer {
@@ -171,60 +154,57 @@
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
-    <img src="logo.png" alt="NEXA TECH Logo">
-    <div class="menu-toggle" onclick="toggleMenu()">
+    <img src="logo.png" alt="NEXA TECH Logo" onclick="downloadPPT()">
+    <div class="menu-toggle" onclick="toggleSidebar()">
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <nav>
-      <ul id="menu">
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#mission">Our Mission</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
   </header>
 
+  <!-- HERO -->
   <div class="hero">
-    <img src="logo.png" alt="NEXA TECH Logo">
+    <img src="logo.png" alt="NEXA TECH Logo" onclick="downloadPPT()">
     <h1>Welcome to NEXA TECH</h1>
     <p>Innovating the future with cutting-edge AI, automation, and smart technology.</p>
   </div>
 
-  <section id="about">
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
     <h2>About Us</h2>
-    <p>NEXA TECH is a futuristic company dedicated to building AI-driven products that redefine human interaction with technology. From intelligent bots to immersive AR glasses, we strive to make life smarter and simpler.</p>
-  </section>
+    <p>NEXA TECH is a futuristic AI and technology company creating products that redefine innovation. 
+    We combine intelligence, design, and performance to craft solutions like NexaVerse, NexaBuds, and NexaBot — making life smarter and simpler for everyone.</p>
+  </div>
 
-  <section id="mission">
-    <h2>Our Mission</h2>
-    <p>Our mission is to revolutionize everyday living by blending artificial intelligence, automation, and human creativity to design the next generation of smart solutions.</p>
-  </section>
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
 
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>Email us at <strong>support@nexatech.com</strong><br> or reach us on our social media handles for collaboration and business inquiries.</p>
-  </section>
-
+  <!-- FOOTER -->
   <footer>
     © 2025 NEXA TECH PVT. LTD. — All Rights Reserved.
   </footer>
 
   <script>
-    function toggleMenu() {
-      document.getElementById('menu').classList.toggle('active');
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
     }
 
-    // Close menu when clicking outside
-    window.addEventListener('click', function(e) {
-      const menu = document.getElementById('menu');
-      const toggle = document.querySelector('.menu-toggle');
-      if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-        menu.classList.remove('active');
-      }
-    });
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('active');
+      document.getElementById('overlay').classList.remove('active');
+    }
+
+    function downloadPPT() {
+      const link = document.createElement('a');
+      link.href = 'NexaTech.pptx';  // make sure NexaTech.pptx is uploaded in the same folder
+      link.download = 'NexaTech.pptx';
+      link.click();
+    }
   </script>
 </body>
 </html>
