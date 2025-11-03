@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEXA TECH PVT. LTD.</title>
   <style>
-    /* GENERAL STYLING */
     body {
       margin: 0;
       padding: 0;
@@ -22,18 +21,20 @@
 
     h1 {
       color: #00eaff;
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       text-align: center;
       margin-top: 20px;
       letter-spacing: 1px;
+      text-shadow: 0 0 12px #00eaff;
     }
 
     /* CENTER LOGO */
     .center-logo {
       position: relative;
-      width: 130px;
-      height: 130px;
+      width: 150px;
+      height: 150px;
       animation: float 4s ease-in-out infinite;
+      z-index: 2;
     }
 
     .center-logo img {
@@ -48,44 +49,54 @@
       50% { transform: translateY(-10px); }
     }
 
-    /* ORBIT CONTAINER */
+    /* ORBIT LAYER CONTAINERS (DIFFERENT SPEEDS) */
     .orbit {
       position: absolute;
-      width: 550px;
-      height: 550px;
+      width: 650px;
+      height: 650px;
       border-radius: 50%;
-      animation: rotate 22s linear infinite;
       display: flex;
       align-items: center;
       justify-content: center;
+      pointer-events: none;
     }
+
+    .orbit.one { animation: rotate 22s linear infinite; }
+    .orbit.two { animation: rotateReverse 26s linear infinite; }
 
     @keyframes rotate {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
 
-    /* PRODUCT ICONS */
+    @keyframes rotateReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* PRODUCT ITEMS */
     .orbit-item {
       position: absolute;
       text-align: center;
       color: #00eaff;
       transition: 0.3s;
+      pointer-events: all;
     }
 
     .orbit-item img {
-      width: 80px;
-      height: 80px;
+      width: 110px;
+      height: 110px;
       border-radius: 15px;
-      filter: drop-shadow(0 0 10px #00eaffaa);
+      filter: drop-shadow(0 0 12px #00eaffaa);
       transition: 0.3s;
       cursor: pointer;
+      transform: rotate(0deg); /* stays upright */
     }
 
     .orbit-item span {
       display: block;
       margin-top: 8px;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
 
     .orbit-item:hover img {
@@ -93,14 +104,14 @@
       filter: drop-shadow(0 0 25px #00eaff);
     }
 
-    /* POSITIONING ITEMS IN ORBIT */
-    .item1 { transform: rotate(0deg) translate(260px) rotate(0deg); }
-    .item2 { transform: rotate(72deg) translate(260px) rotate(-72deg); }
-    .item3 { transform: rotate(144deg) translate(260px) rotate(-144deg); }
-    .item4 { transform: rotate(216deg) translate(260px) rotate(-216deg); }
-    .item5 { transform: rotate(288deg) translate(260px) rotate(-288deg); }
+    /* Orbit Item Positions */
+    .item1 { transform: rotate(0deg) translate(320px); }
+    .item2 { transform: rotate(72deg) translate(320px); }
+    .item3 { transform: rotate(144deg) translate(320px); }
+    .item4 { transform: rotate(216deg) translate(320px); }
+    .item5 { transform: rotate(288deg) translate(320px); }
 
-    /* CLICK POPUP */
+    /* POPUP INFO */
     .popup {
       position: fixed;
       top: 50%;
@@ -134,7 +145,6 @@
       background: #00eaff;
       color: #000;
     }
-
   </style>
 </head>
 <body>
@@ -144,8 +154,8 @@
     <img src="logo.png" alt="NEXA TECH Logo">
   </div>
 
-  <!-- Orbiting Items -->
-  <div class="orbit">
+  <!-- Orbit 1 -->
+  <div class="orbit one">
     <div class="orbit-item item1" onclick="showPopup('NexaVerse – Smart AI Glasses with Augmented Reality')">
       <img src="NexaVERSE.png" alt="NexaVerse">
       <span>NexaVerse</span>
