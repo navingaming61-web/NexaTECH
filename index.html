@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AVIORA TECH PVT. LTD.</title>
-
+  <title>Aviora Tech Pvt. Ltd.</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; scroll-behavior: smooth; }
@@ -14,110 +13,6 @@
       color: #e6f7fb;
       overflow-x: hidden;
     }
-
-    /* ---------- Header ---------- */
-    .topbar {
-      position: fixed;
-      top: 18px;
-      right: 22px;
-      z-index: 1200;
-      display: flex;
-      align-items: center;
-    }
-    .hamburger {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid rgba(0,217,255,0.08);
-      box-shadow: 0 6px 22px rgba(0,217,255,0.03);
-      transition: transform .2s ease;
-    }
-    .hamburger:hover { transform: scale(1.05); }
-    .hamburger .bars { color: #00d9ff; font-size: 22px; }
-
-    /* ---------- Overlay ---------- */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 255, 255, 0.08);
-      backdrop-filter: blur(2px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1099;
-    }
-    .overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    /* ---------- Sidebar ---------- */
-    .side-panel {
-      position: fixed;
-      top: 0;
-      right: -320px;
-      width: 320px;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(8,12,14,0.98), rgba(10,14,18,0.95));
-      border-left: 1px solid rgba(0,217,255,0.06);
-      box-shadow: -20px 0 80px rgba(0,255,255,0.1);
-      padding: 70px 22px;
-      transition: right .4s ease;
-      z-index: 1100;
-    }
-    .side-panel.open { right: 0; }
-
-    .side-panel h3 {
-      color: #00d9ff;
-      margin-bottom: 12px;
-      font-size: 18px;
-    }
-    .menu-item {
-      color: #d8fbff;
-      padding: 12px 10px;
-      border-radius: 8px;
-      margin-bottom: 6px;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 16px;
-    }
-    .menu-item:hover { background: rgba(0,217,255,0.04); color: #00f0ff; }
-
-    .droprow { margin-top: 8px; }
-    .dd-btn {
-      width: 100%;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 16px;
-      padding: 12px 10px;
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-    .caret { transition: transform .25s ease; color: #9feeff; }
-    .dd-list {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .3s ease;
-      padding-left: 10px;
-    }
-    .dd-list.open { max-height: 240px; padding-top: 8px; }
-    .dd-list .sub {
-      display: block;
-      color: #cbeff2;
-      padding: 8px 6px;
-      font-size: 15px;
-      border-radius: 6px;
-    }
-    .dd-list .sub:hover { color: #00e6ff; background: rgba(0,217,255,0.03); }
-
-    /* ---------- Hero Section ---------- */
     .hero {
       height: 100vh;
       display: grid;
@@ -125,292 +20,119 @@
       text-align: center;
       padding: 30px;
     }
-    .logo-wrap {
-      display: grid;
-      place-items: center;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
-    }
-    .logo {
-      width: 220px;
-      animation: floaty 3s ease-in-out infinite;
-      transition: transform .18s ease;
-    }
-    .logo:hover { transform: scale(1.05); cursor: pointer; }
-    @keyframes floaty {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    .company-name {
-      margin-top: 10px;
-      color: #bff8ff;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 1.4px;
-    }
-    .subtitle {
-      margin-top: 10px;
-      color: #c9f1f6;
-      font-size: 15px;
-      opacity: 0.85;
-      max-width: 700px;
-    }
+    .logo { width: 220px; animation: floaty 3s ease-in-out infinite; cursor: pointer; }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    .company-name { margin-top: 10px; color: #bff8ff; font-size: 28px; font-weight: 700; letter-spacing: 1.4px; }
+    .subtitle { margin-top: 10px; color: #c9f1f6; font-size: 15px; opacity: 0.85; max-width: 700px; }
 
-    /* ---------- Products Section ---------- */
     .products {
       padding: 100px 20px;
       text-align: center;
     }
-    .products h2 {
-      font-size: 2rem;
-      color: #00eaff;
-      margin-bottom: 50px;
-      text-shadow: 0 0 10px #00eaff;
-    }
+    .products h2 { font-size: 2rem; color: #00eaff; margin-bottom: 50px; text-shadow: 0 0 10px #00eaff; }
     .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
     }
     .product-card {
-      width: 200px;
-      text-align: center;
+      width: 200px; text-align: center;
       background: rgba(0,255,255,0.05);
       border: 1px solid rgba(0,255,255,0.15);
-      border-radius: 15px;
-      padding: 20px;
+      border-radius: 15px; padding: 20px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .product-card:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 20px rgba(0,255,255,0.25);
-    }
-    .product-card img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .product-card h3 {
-      margin-top: 10px;
-      color: #bffcff;
-      font-size: 18px;
-    }
-
-    /* ---------- Main Goal Section ---------- */
-    .goal {
-      padding: 100px 20px;
-      text-align: center;
-      background: radial-gradient(circle at center, #000 60%, #001822 100%);
-      border-top: 1px solid #00eaff33;
-      border-bottom: 1px solid #00eaff33;
-    }
-    .goal h2 {
-      font-size: 2rem;
-      color: #00eaff;
-      text-shadow: 0 0 10px #00eaff;
-      margin-bottom: 30px;
-    }
-    .goal p {
-      max-width: 800px;
-      margin: 0 auto;
-      color: #b3ffff;
-      line-height: 1.7;
-      font-size: 1.05rem;
-      transition: transform 0.3s ease;
-    }
-    .goal p:hover { transform: scale(1.02); }
-
-    /* ---------- Chatbot ---------- */
-    .chatbot {
-      position: fixed;
-      bottom: 25px;
-      left: 25px;
-      width: 320px;
-      background: rgba(0, 20, 30, 0.9);
-      border: 1px solid rgba(0,255,255,0.3);
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0,255,255,0.2);
-      z-index: 1300;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .chatbot.hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px);
-    }
-    .chat-header {
-      background: rgba(0,255,255,0.1);
-      color: #00eaff;
-      padding: 10px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .chat-messages {
-      height: 200px;
-      padding: 10px;
-      overflow-y: auto;
-      color: #d8faff;
-      font-size: 14px;
-    }
-    .chat-input {
-      display: flex;
-      border-top: 1px solid rgba(0,255,255,0.2);
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-      background: rgba(0,10,20,0.7);
-      border: none;
-      color: #fff;
-      outline: none;
-    }
-    .chat-input button {
-      background: #00eaff;
-      border: none;
-      color: #000;
-      padding: 10px 15px;
       cursor: pointer;
-      font-weight: bold;
     }
+    .product-card:hover { transform: scale(1.07); box-shadow: 0 0 20px rgba(0,255,255,0.25); }
+    .product-card img { width: 100%; border-radius: 10px; }
+    .product-card h3 { margin-top: 10px; color: #bffcff; font-size: 18px; }
 
-    footer {
+    .product-info {
+      padding: 80px 20px;
       text-align: center;
-      padding: 25px;
-      background: #010a10;
-      border-top: 1px solid rgba(0,255,255,0.15);
-      color: #00f0ff;
-      font-size: 14px;
+      display: none;
     }
+    .product-info.active { display: block; }
+    .product-info h2 { color: #00eaff; font-size: 2rem; margin-bottom: 20px; text-shadow: 0 0 10px #00eaff; }
+    .product-info img { width: 260px; margin: 20px 0; border-radius: 15px; box-shadow: 0 0 30px rgba(0,255,255,0.1); }
+    .product-info p { max-width: 700px; margin: 0 auto; line-height: 1.7; color: #c9f1f6; }
 
-    @media (max-width:700px){
-      .side-panel { width: 85%; right: -100%; }
-      .logo { width: 150px; }
-      .company-name { font-size: 22px; }
-      .chatbot { width: 260px; }
-    }
+    footer { text-align: center; padding: 25px; background: #010a10; border-top: 1px solid rgba(0,255,255,0.15); color: #00f0ff; font-size: 14px; }
   </style>
 </head>
 
 <body>
-  <div class="overlay" id="overlay"></div>
-
-  <div class="topbar">
-    <div class="hamburger" id="hamburgerBtn" title="Menu">
-      <div class="bars">☰</div>
-    </div>
-  </div>
-
-  <aside id="sidePanel" class="side-panel">
-    <h3>About Us</h3>
-    <div class="menu-item">AVIORA TECH PVT. LTD.</div>
-    <div class="droprow">
-      <button class="dd-btn" id="aboutBtn">
-        <span>More Info</span>
-        <span class="caret" id="caret">▾</span>
-      </button>
-      <div class="dd-list" id="aboutList">
-        <a class="sub" href="#">📍 Address — Orion Business Park, Thane West</a>
-        <a class="sub" href="#">🚀 Mission — Build intelligent, human-first tech</a>
-        <a class="sub" href="#">🌍 Vision — Smart devices that understand people</a>
-        <a class="sub" href="#">📞 Contact — +91 22 4973 5628</a>
-      </div>
-    </div>
-  </aside>
-
-  <main class="hero">
+  <main class="hero" id="mainPage">
     <div class="logo-wrap">
-      <a href="AvioraTech.pptx" download title="Download AvioraTech Presentation">
-        <img src="logo.png" alt="AVIORA TECH Logo" class="logo">
-      </a>
-      <div class="company-name">AVIORA TECH PVT. LTD.</div>
-      <div class="subtitle">Future-Driven • Innovation-Led — Artificial Intelligence, Smart Devices & Next-Gen Ecosystems</div>
+      <img src="logo.png" alt="Aviora Tech Logo" class="logo" />
+      <div class="company-name">Aviora Tech Pvt. Ltd.</div>
+      <div class="subtitle">AI • Robotics • Smart Devices — The Future, Reinvented</div>
     </div>
   </main>
 
-  <section class="products">
+  <section class="products" id="productSection">
     <h2>Our Products</h2>
     <div class="product-grid">
-      <div class="product-card"><img src="NexaBUDS.png" alt="AvioraBuds"><h3>AvioraBuds</h3></div>
-      <div class="product-card"><img src="NexaVERSE.png" alt="AvioraVerse"><h3>AvioraVerse</h3></div>
-      <div class="product-card"><img src="NexaHOME.png" alt="AvioraHome"><h3>AvioraHome</h3></div>
-      <div class="product-card"><img src="NexaCELL.png" alt="AvioraCell"><h3>AvioraCell</h3></div>
-      <div class="product-card"><img src="NexaBOT.png" alt="AvioraBot"><h3>AvioraBot</h3></div>
+      <div class="product-card" data-product="AvioraBuds"><img src="NexaBUDS.png" alt=""><h3>AvioraBuds</h3></div>
+      <div class="product-card" data-product="AvioraVerse"><img src="NexaVERSE.png" alt=""><h3>AvioraVerse</h3></div>
+      <div class="product-card" data-product="AvioraHome"><img src="NexaHOME.png" alt=""><h3>AvioraHome</h3></div>
+      <div class="product-card" data-product="AvioraCell"><img src="NexaCELL.png" alt=""><h3>AvioraCell</h3></div>
+      <div class="product-card" data-product="AvioraBot"><img src="NexaBOT.png" alt=""><h3>AvioraBot</h3></div>
     </div>
   </section>
 
-  <section class="goal">
-    <h2>Main Goal of AVIORA TECH</h2>
-    <p>
-      At <strong>AVIORA TECH</strong>, our main goal is to bridge the gap between <span style="color:#00eaff;">artificial intelligence</span> 
-      and human experience. We believe technology should not only simplify life — it should understand it.  
-      <br><br>
-      From creating intuitive AI systems to developing smart devices that learn from human behavior, 
-      AVIORA TECH is committed to building a world where every interaction with technology feels natural, 
-      intelligent, and empowering.  
-      <br><br>
-      Our mission is to inspire the next generation of innovation and make AI accessible to everyone, everywhere.
-    </p>
+  <section class="product-info" id="productInfo">
+    <h2 id="productTitle"></h2>
+    <img id="productImage" src="" alt="">
+    <p id="productDescription"></p>
   </section>
 
-  <div class="chatbot" id="chatbot">
-    <div class="chat-header">
-      Aviora AI Assistant
-      <span id="closeChat" style="cursor:pointer;">✖</span>
-    </div>
-    <div class="chat-messages">
-      <p><strong>Aviora AI:</strong> Hello! How can I assist you today?</p>
-    </div>
-    <div class="chat-input">
-      <input type="text" placeholder="Type a message..." />
-      <button>Send</button>
-    </div>
-  </div>
-
-  <footer>© 2025 AVIORA TECH PVT. LTD. — All Rights Reserved.</footer>
+  <footer>© 2025 Aviora Tech Pvt. Ltd. — All Rights Reserved.</footer>
 
   <script>
-    const hamburger = document.getElementById("hamburgerBtn");
-    const sidePanel = document.getElementById("sidePanel");
-    const overlay = document.getElementById("overlay");
-    const aboutBtn = document.getElementById("aboutBtn");
-    const aboutList = document.getElementById("aboutList");
-    const caret = document.getElementById("caret");
-    const chatbot = document.getElementById("chatbot");
-    const closeChat = document.getElementById("closeChat");
+    const productCards = document.querySelectorAll(".product-card");
+    const mainPage = document.getElementById("mainPage");
+    const productSection = document.getElementById("productSection");
+    const productInfo = document.getElementById("productInfo");
 
-    hamburger.addEventListener("click", () => {
-      sidePanel.classList.toggle("open");
-      overlay.classList.toggle("active");
-    });
-
-    overlay.addEventListener("click", () => {
-      sidePanel.classList.remove("open");
-      overlay.classList.remove("active");
-    });
-
-    aboutBtn.addEventListener("click", () => {
-      const isOpen = aboutList.classList.toggle("open");
-      caret.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
-    });
-
-    document.addEventListener("keydown", e => {
-      if (e.key === "Escape") {
-        sidePanel.classList.remove("open");
-        overlay.classList.remove("active");
+    const productData = {
+      AvioraBuds: {
+        img: "NexaBUDS.png",
+        title: "AvioraBuds",
+        desc: "Experience crystal-clear sound and intelligent noise cancellation with AvioraBuds. Expected Price: ₹8,499 | Warranty: 1 Year"
+      },
+      AvioraVerse: {
+        img: "NexaVERSE.png",
+        title: "AvioraVerse",
+        desc: "Step into mixed reality with AvioraVerse smart AR glasses. Expected Price: ₹29,999 | Warranty: 2 Years"
+      },
+      AvioraHome: {
+        img: "NexaHOME.png",
+        title: "AvioraHome",
+        desc: "Smart home ecosystem with AI voice control and automation. Expected Price: ₹14,999 | Warranty: 1 Year"
+      },
+      AvioraCell: {
+        img: "NexaCELL.png",
+        title: "AvioraCell",
+        desc: "A futuristic AI-powered smartphone built for next-gen performance. Expected Price: ₹79,999 | Warranty: 1.5 Years"
+      },
+      AvioraBot: {
+        img: "NexaBOT.png",
+        title: "AvioraBot",
+        desc: "Your personal home robot assistant. Helps you organize, interact, and live smarter. Expected Price: ₹1,49,999 | Warranty: 3 Years"
       }
-    });
+    };
 
-    closeChat.addEventListener("click", () => {
-      chatbot.style.display = "none";
-    });
-
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 200) chatbot.classList.add("hidden");
-      else chatbot.classList.remove("hidden");
+    productCards.forEach(card => {
+      card.addEventListener("click", () => {
+        const key = card.getAttribute("data-product");
+        const item = productData[key];
+        mainPage.style.display = "none";
+        productSection.style.display = "none";
+        productInfo.classList.add("active");
+        document.getElementById("productTitle").textContent = item.title;
+        document.getElementById("productImage").src = item.img;
+        document.getElementById("productDescription").textContent = item.desc;
+        window.scrollTo(0, 0);
+      });
     });
   </script>
 </body>
