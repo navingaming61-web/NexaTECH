@@ -1,210 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NEXA TECH PVT. LTD.</title>
+
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; scroll-behavior: smooth; }
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #000;
-      color: #00eaff;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at 20% 10%, #071023 0%, #020203 45%, #000 100%);
+      color: #e6f7fb;
       overflow-x: hidden;
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 80px;
-      background: rgba(0, 0, 0, 0.8);
+    /* ---------- Header ---------- */
+    .topbar {
       position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-    }
-
-    header img {
-      height: 55px;
-      filter: drop-shadow(0 0 8px #00eaff);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    header img:hover {
-      transform: scale(1.1);
-    }
-
-    /* Hamburger icon */
-    .menu-toggle {
+      top: 18px;
+      right: 22px;
+      z-index: 1200;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+    }
+    .hamburger {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
       cursor: pointer;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(0,217,255,0.08);
+      box-shadow: 0 6px 22px rgba(0,217,255,0.03);
+      transition: transform .2s ease;
+    }
+    .hamburger:hover { transform: scale(1.05); }
+    .hamburger .bars { color: #00d9ff; font-size: 22px; }
+
+    /* ---------- Overlay ---------- */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 255, 255, 0.08);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1099;
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
     }
 
-    .menu-toggle div {
-      width: 25px;
-      height: 3px;
-      background: #00eaff;
-      margin: 4px 0;
-      transition: 0.3s;
-    }
-
-    /* Slide-in sidebar */
-    .sidebar {
+    /* ---------- Sidebar ---------- */
+    .side-panel {
       position: fixed;
       top: 0;
       right: -320px;
-      width: 300px;
+      width: 320px;
       height: 100%;
-      background: rgba(0, 20, 25, 0.98);
-      box-shadow: -3px 0 15px #00eaff88;
-      border-left: 1px solid #00eaff;
-      padding: 80px 30px;
-      transition: right 0.4s ease;
-      z-index: 9;
+      background: linear-gradient(180deg, rgba(8,12,14,0.98), rgba(10,14,18,0.95));
+      border-left: 1px solid rgba(0,217,255,0.06);
+      box-shadow: -20px 0 80px rgba(0,255,255,0.1);
+      padding: 70px 22px;
+      transition: right .4s ease;
+      z-index: 1100;
     }
+    .side-panel.open { right: 0; }
 
-    .sidebar.active {
-      right: 0;
+    .side-panel h3 {
+      color: #00d9ff;
+      margin-bottom: 12px;
+      font-size: 18px;
     }
-
-    .sidebar h2 {
-      color: #00eaff;
-      text-shadow: 0 0 10px #00eaff;
-      margin-bottom: 15px;
-      font-size: 1.5rem;
+    .menu-item {
+      color: #d8fbff;
+      padding: 12px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 16px;
     }
+    .menu-item:hover { background: rgba(0,217,255,0.04); color: #00f0ff; }
 
-    .sidebar p {
-      font-size: 1rem;
-      color: #b3ffff;
-      line-height: 1.6;
+    .droprow { margin-top: 8px; }
+    .dd-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      padding: 12px 10px;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      border-radius: 8px;
     }
+    .caret { transition: transform .25s ease; color: #9feeff; }
+    .dd-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+      padding-left: 10px;
+    }
+    .dd-list.open { max-height: 240px; padding-top: 8px; }
+    .dd-list .sub {
+      display: block;
+      color: #cbeff2;
+      padding: 8px 6px;
+      font-size: 15px;
+      border-radius: 6px;
+    }
+    .dd-list .sub:hover { color: #00e6ff; background: rgba(0,217,255,0.03); }
 
-    /* Hero Section */
+    /* ---------- Hero Section ---------- */
     .hero {
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      display: grid;
+      place-items: center;
       text-align: center;
-      background: linear-gradient(180deg, #000 0%, #00171f 100%);
+      padding: 30px;
     }
-
-    .hero img {
-      width: 180px;
-      margin-bottom: 25px;
-      filter: drop-shadow(0 0 20px #00eaff);
-      animation: float 4s ease-in-out infinite;
-      cursor: pointer;
+    .logo-wrap {
+      display: grid;
+      place-items: center;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
     }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
+    .logo {
+      width: 220px;
+      animation: floaty 3s ease-in-out infinite;
+      transition: transform .18s ease;
+    }
+    .logo:hover { transform: scale(1.05); cursor: pointer; }
+    @keyframes floaty {
+      0%,100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 12px #00eaff;
+    .company-name {
+      margin-top: 10px;
+      color: #bff8ff;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+    }
+    .subtitle {
+      margin-top: 10px;
+      color: #c9f1f6;
+      font-size: 15px;
+      opacity: 0.85;
+      max-width: 700px;
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      color: #a8ffff;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Overlay when sidebar opens */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 238, 255, 0.05);
-      backdrop-filter: blur(2px);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease;
-      z-index: 8;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    footer {
-      background: #00171f;
-      color: #00eaff;
-      text-align: center;
-      padding: 25px 0;
-      border-top: 1px solid #00eaff;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
+    @media (max-width:700px){
+      .side-panel { width: 85%; right: -100%; }
+      .logo { width: 150px; }
+      .company-name { font-size: 22px; }
     }
   </style>
 </head>
 <body>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
 
-  <!-- HEADER -->
-  <header>
-    <img src="logo.png" alt="NEXA TECH Logo" onclick="downloadPPT()">
-    <div class="menu-toggle" onclick="toggleSidebar()">
-      <div></div>
-      <div></div>
-      <div></div>
+  <!-- Hamburger -->
+  <div class="topbar">
+    <div class="hamburger" id="hamburgerBtn" title="Menu">
+      <div class="bars">☰</div>
     </div>
-  </header>
-
-  <!-- HERO -->
-  <div class="hero">
-    <img src="logo.png" alt="NEXA TECH Logo" onclick="downloadPPT()">
-    <h1>Welcome to NEXA TECH</h1>
-    <p>Innovating the future with cutting-edge AI, automation, and smart technology.</p>
   </div>
 
   <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <h2>About Us</h2>
-    <p>NEXA TECH is a futuristic AI and technology company creating products that redefine innovation. 
-    We combine intelligence, design, and performance to craft solutions like NexaVerse, NexaBuds, and NexaBot — making life smarter and simpler for everyone.</p>
-  </div>
+  <aside id="sidePanel" class="side-panel">
+    <h3>About Us</h3>
+    <div class="menu-item">NEXA TECH PVT. LTD.</div>
+    <div class="droprow">
+      <button class="dd-btn" id="aboutBtn">
+        <span>More Info</span>
+        <span class="caret" id="caret">▾</span>
+      </button>
+      <div class="dd-list" id="aboutList">
+        <a class="sub" href="#">📍 Address — Orion Business Park, Thane West</a>
+        <a class="sub" href="#">🚀 Mission — Build intelligent, human-first tech</a>
+        <a class="sub" href="#">🌍 Vision — Smart devices that understand people</a>
+        <a class="sub" href="#">📞 Contact — +91 22 4973 5628</a>
+      </div>
+    </div>
+  </aside>
 
-  <!-- Overlay -->
-  <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
-
-  <!-- FOOTER -->
-  <footer>
-    © 2025 NEXA TECH PVT. LTD. — All Rights Reserved.
-  </footer>
+  <!-- Hero -->
+  <main class="hero">
+    <div class="logo-wrap">
+      <a href="NexaTech.pptx" download title="Download NexaTech Presentation">
+        <img src="logo.png" alt="NEXA TECH Logo" class="logo">
+      </a>
+      <div class="company-name">NEXA TECH PVT. LTD.</div>
+      <div class="subtitle">Future-Driven • Innovation-Led — Artificial Intelligence, Smart Devices & Next-Gen Ecosystems</div>
+    </div>
+  </main>
 
   <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('overlay');
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-    }
+    const hamburger = document.getElementById("hamburgerBtn");
+    const sidePanel = document.getElementById("sidePanel");
+    const overlay = document.getElementById("overlay");
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutList = document.getElementById("aboutList");
+    const caret = document.getElementById("caret");
 
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.remove('active');
-      document.getElementById('overlay').classList.remove('active');
-    }
+    // Toggle sidebar + overlay
+    hamburger.addEventListener("click", () => {
+      sidePanel.classList.toggle("open");
+      overlay.classList.toggle("active");
+    });
 
-    function downloadPPT() {
-      const link = document.createElement('a');
-      link.href = 'NexaTech.pptx';  // make sure NexaTech.pptx is uploaded in the same folder
-      link.download = 'NexaTech.pptx';
-      link.click();
-    }
+    // Click outside closes sidebar
+    overlay.addEventListener("click", () => {
+      sidePanel.classList.remove("open");
+      overlay.classList.remove("active");
+    });
+
+    // Dropdown toggle
+    aboutBtn.addEventListener("click", () => {
+      const isOpen = aboutList.classList.toggle("open");
+      caret.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        sidePanel.classList.remove("open");
+        overlay.classList.remove("active");
+      }
+    });
   </script>
 </body>
 </html>
