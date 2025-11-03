@@ -1,240 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEXA TECH PVT. LTD.</title>
-
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; scroll-behavior: smooth; }
+    /* GENERAL STYLING */
     body {
-      font-family: "Poppins", sans-serif;
-      background: radial-gradient(circle at 20% 10%, #071023 0%, #020203 45%, #000 100%);
-      color: #e6f7fb;
-      overflow-x: hidden;
-    }
-
-    /* ---------- Header ---------- */
-    .topbar {
-      position: fixed;
-      top: 18px;
-      right: 22px;
-      z-index: 1200;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #000000 70%, #00171f 100%);
+      color: #00eaff;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      height: 100vh;
       display: flex;
       align-items: center;
-    }
-    .hamburger {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid rgba(0,217,255,0.08);
-      box-shadow: 0 6px 22px rgba(0,217,255,0.03);
-      transition: transform .2s ease;
-    }
-    .hamburger:hover { transform: scale(1.05); }
-    .hamburger .bars { color: #00d9ff; font-size: 22px; }
-
-    /* ---------- Overlay ---------- */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 255, 255, 0.08);
-      backdrop-filter: blur(2px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1099;
-    }
-    .overlay.active {
-      opacity: 1;
-      pointer-events: all;
+      justify-content: center;
+      flex-direction: column;
     }
 
-    /* ---------- Sidebar ---------- */
-    .side-panel {
-      position: fixed;
-      top: 0;
-      right: -320px;
-      width: 320px;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(8,12,14,0.98), rgba(10,14,18,0.95));
-      border-left: 1px solid rgba(0,217,255,0.06);
-      box-shadow: -20px 0 80px rgba(0,255,255,0.1);
-      padding: 70px 22px;
-      transition: right .4s ease;
-      z-index: 1100;
-    }
-    .side-panel.open { right: 0; }
-
-    .side-panel h3 {
-      color: #00d9ff;
-      margin-bottom: 12px;
-      font-size: 18px;
-    }
-    .menu-item {
-      color: #d8fbff;
-      padding: 12px 10px;
-      border-radius: 8px;
-      margin-bottom: 6px;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 16px;
-    }
-    .menu-item:hover { background: rgba(0,217,255,0.04); color: #00f0ff; }
-
-    .droprow { margin-top: 8px; }
-    .dd-btn {
-      width: 100%;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 16px;
-      padding: 12px 10px;
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-    .caret { transition: transform .25s ease; color: #9feeff; }
-    .dd-list {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .3s ease;
-      padding-left: 10px;
-    }
-    .dd-list.open { max-height: 240px; padding-top: 8px; }
-    .dd-list .sub {
-      display: block;
-      color: #cbeff2;
-      padding: 8px 6px;
-      font-size: 15px;
-      border-radius: 6px;
-    }
-    .dd-list .sub:hover { color: #00e6ff; background: rgba(0,217,255,0.03); }
-
-    /* ---------- Hero Section ---------- */
-    .hero {
-      height: 100vh;
-      display: grid;
-      place-items: center;
+    h1 {
+      color: #00eaff;
+      font-size: 2.5rem;
       text-align: center;
-      padding: 30px;
-    }
-    .logo-wrap {
-      display: grid;
-      place-items: center;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
-    }
-    .logo {
-      width: 220px;
-      animation: floaty 3s ease-in-out infinite;
-      transition: transform .18s ease;
-    }
-    .logo:hover { transform: scale(1.05); cursor: pointer; }
-    @keyframes floaty {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    .company-name {
-      margin-top: 10px;
-      color: #bff8ff;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 1.4px;
-    }
-    .subtitle {
-      margin-top: 10px;
-      color: #c9f1f6;
-      font-size: 15px;
-      opacity: 0.85;
-      max-width: 700px;
+      margin-top: 20px;
+      letter-spacing: 1px;
     }
 
-    @media (max-width:700px){
-      .side-panel { width: 85%; right: -100%; }
-      .logo { width: 150px; }
-      .company-name { font-size: 22px; }
+    /* CENTER LOGO */
+    .center-logo {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      animation: float 4s ease-in-out infinite;
     }
+
+    .center-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 15px #00eaff);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ORBIT CONTAINER */
+    .orbit {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      animation: rotate 22s linear infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* PRODUCT ICONS */
+    .orbit-item {
+      position: absolute;
+      text-align: center;
+      color: #00eaff;
+      transition: 0.3s;
+    }
+
+    .orbit-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      filter: drop-shadow(0 0 10px #00eaffaa);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .orbit-item span {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+
+    .orbit-item:hover img {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 25px #00eaff);
+    }
+
+    /* POSITIONING ITEMS IN ORBIT */
+    .item1 { transform: rotate(0deg) translate(260px) rotate(0deg); }
+    .item2 { transform: rotate(72deg) translate(260px) rotate(-72deg); }
+    .item3 { transform: rotate(144deg) translate(260px) rotate(-144deg); }
+    .item4 { transform: rotate(216deg) translate(260px) rotate(-216deg); }
+    .item5 { transform: rotate(288deg) translate(260px) rotate(-288deg); }
+
+    /* CLICK POPUP */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(0, 20, 25, 0.95);
+      padding: 40px 60px;
+      border-radius: 20px;
+      color: #00eaff;
+      box-shadow: 0 0 25px #00eaff;
+      text-align: center;
+      transition: transform 0.4s ease;
+      z-index: 10;
+    }
+
+    .popup.active {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .popup button {
+      background: none;
+      border: 1px solid #00eaff;
+      color: #00eaff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .popup button:hover {
+      background: #00eaff;
+      color: #000;
+    }
+
   </style>
 </head>
 <body>
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
 
-  <!-- Hamburger -->
-  <div class="topbar">
-    <div class="hamburger" id="hamburgerBtn" title="Menu">
-      <div class="bars">☰</div>
+  <!-- Center Logo -->
+  <div class="center-logo">
+    <img src="logo.png" alt="NEXA TECH Logo">
+  </div>
+
+  <!-- Orbiting Items -->
+  <div class="orbit">
+    <div class="orbit-item item1" onclick="showPopup('NexaVerse – Smart AI Glasses with Augmented Reality')">
+      <img src="NexaVERSE.png" alt="NexaVerse">
+      <span>NexaVerse</span>
+    </div>
+    <div class="orbit-item item2" onclick="showPopup('NexaHome – Smart Home Ecosystem')">
+      <img src="NexaHOME.png" alt="NexaHome">
+      <span>NexaHome</span>
+    </div>
+    <div class="orbit-item item3" onclick="showPopup('NexaCell – Adaptive Graphene Powerbank')">
+      <img src="NexaCELL.png" alt="NexaCell">
+      <span>NexaCell</span>
+    </div>
+    <div class="orbit-item item4" onclick="showPopup('NexaBot – AI Assistant Robot')">
+      <img src="NexaBOT.png" alt="NexaBot">
+      <span>NexaBot</span>
+    </div>
+    <div class="orbit-item item5" onclick="showPopup('NexaBuds – AI Powered Smart Earbuds')">
+      <img src="NexaBUDS.png" alt="NexaBuds">
+      <span>NexaBuds</span>
     </div>
   </div>
 
-  <!-- Sidebar -->
-  <aside id="sidePanel" class="side-panel">
-    <h3>About Us</h3>
-    <div class="menu-item">NEXA TECH PVT. LTD.</div>
-    <div class="droprow">
-      <button class="dd-btn" id="aboutBtn">
-        <span>More Info</span>
-        <span class="caret" id="caret">▾</span>
-      </button>
-      <div class="dd-list" id="aboutList">
-        <a class="sub" href="#">📍 Address — Orion Business Park, Thane West</a>
-        <a class="sub" href="#">🚀 Mission — Build intelligent, human-first tech</a>
-        <a class="sub" href="#">🌍 Vision — Smart devices that understand people</a>
-        <a class="sub" href="#">📞 Contact — +91 22 4973 5628</a>
-      </div>
-    </div>
-  </aside>
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    <h2 id="popup-title">Product Info</h2>
+    <p>Coming soon on NEXA TECH!</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
 
-  <!-- Hero -->
-  <main class="hero">
-    <div class="logo-wrap">
-      <a href="NexaTech.pptx" download title="Download NexaTech Presentation">
-        <img src="logo.png" alt="NEXA TECH Logo" class="logo">
-      </a>
-      <div class="company-name">NEXA TECH PVT. LTD.</div>
-      <div class="subtitle">Future-Driven • Innovation-Led — Artificial Intelligence, Smart Devices & Next-Gen Ecosystems</div>
-    </div>
-  </main>
+  <h1>Welcome to NEXA TECH</h1>
 
   <script>
-    const hamburger = document.getElementById("hamburgerBtn");
-    const sidePanel = document.getElementById("sidePanel");
-    const overlay = document.getElementById("overlay");
-    const aboutBtn = document.getElementById("aboutBtn");
-    const aboutList = document.getElementById("aboutList");
-    const caret = document.getElementById("caret");
+    function showPopup(product) {
+      document.getElementById('popup-title').innerText = product;
+      document.getElementById('popup').classList.add('active');
+    }
 
-    // Toggle sidebar + overlay
-    hamburger.addEventListener("click", () => {
-      sidePanel.classList.toggle("open");
-      overlay.classList.toggle("active");
-    });
-
-    // Click outside closes sidebar
-    overlay.addEventListener("click", () => {
-      sidePanel.classList.remove("open");
-      overlay.classList.remove("active");
-    });
-
-    // Dropdown toggle
-    aboutBtn.addEventListener("click", () => {
-      const isOpen = aboutList.classList.toggle("open");
-      caret.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
-    });
-
-    // Close on ESC
-    document.addEventListener("keydown", e => {
-      if (e.key === "Escape") {
-        sidePanel.classList.remove("open");
-        overlay.classList.remove("active");
-      }
-    });
+    function closePopup() {
+      document.getElementById('popup').classList.remove('active');
+    }
   </script>
 </body>
 </html>
